@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高階地震學互動教室</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #e67e22;
+            --bg: #f8f9fa;
+            --text: #333;
+            --panel-bg: #ffffff;
+        }
+        body {
+            font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            padding: 20px;
+            max-width: 1000px;
+            margin: auto;
+        }
+        h1 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .accordion {
+            background-color: var(--panel-bg);
+            color: var(--primary);
+            cursor: pointer;
+            padding: 20px;
+            width: 100%;
+            text-align: left;
+            border: none;
+            outline: none;
+            transition: 0.3s;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 8px;
+            margin-top: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .active, .accordion:hover {
+            background-color: #f1f3f5;
+            border-left: 5px solid var(--accent);
+        }
+        .panel {
+            padding: 0 25px;
+            background-color: var(--panel-bg);
+            display: none;
+            overflow: hidden;
+            border-radius: 0 0 8px 8px;
+            border-top: 1px solid #eee;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            padding-bottom: 20px;
+        }
+        .formula {
+            background-color: #f0f4f8;
+            padding: 15px;
+            border-left: 4px solid #3498db;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.1em;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .example-box {
+            background-color: #fff9db;
+            border-left: 4px solid #f59f00;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        svg {
+            display: block;
+            margin: 25px auto;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            max-width: 100%;
+            height: auto;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        @media (max-width: 768px) {
+            .grid-2 { grid-template-columns: 1fr; }
+        }
+        .badge {
+            background-color: var(--accent);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🌍 地震學專家的互動式多媒體課堂</h1>
+    <p class="subtitle">深入淺出解構地殼密碼 ‧ 結合教科書精華圖解</p>
+
+    <button class="accordion"><span><span class="badge">1</span>1. 地震學研究範疇？</span> <span>+</span></button>
+    <div class="panel">
+        <p><b>地震學 (Seismology)</b> 是研究固體地球內部傳遞之「彈性波」的科學。核心概念非常直觀：</p>
+        <p>就像醫生利用<b>超音波</b>透視人體器官一樣，地震學家無法直接挖穿地球，因此我們利用自然地震或人工爆炸產生的<b>地震波</b>當作探照燈，穿透數千公里的岩石與鐵核，藉此探知地殼、地函與地核的精細結構與物理特性。</p>
+    </div>
+
+    <button class="accordion"><span><span class="badge">2</span>2. 圖 1.1-1 至 1.1-5 綜合圖解說明</span> <span>+</span></button>
+    <div class="panel">
+        <p>這五張基礎圖表構成了現代觀測地震學的骨架：</p>
+        <ul>
+            <li><b>圖 1.1-1 (觀測系統)：</b> 包含三個核心元件：震源 (Source) 產生能量 $\rightarrow$ 介質 (Medium) 傳遞波動 $\rightarrow$ 接收器 (Receiver) 記錄成地震圖。</li>
+            <li><b>圖 1.1-2 (波速折射)：</b> 地球內部的岩石越深越堅硬、波速越快，導致震波路徑像光線射入水中一樣產生「連續折射」，路徑呈現向上彎曲的弧線。</li>
+            <li><b>圖 1.1-3 & 1.1-4 (真實地震圖)：</b> 記錄了各階段抵達的波相。最快到的是縱波 (P波)，其次是橫波 (S波)，最後是振幅最大、破壞力最強的表面波。同時也展示了穿透地核的複雜反射波 (如 ScS)。</li>
+            <li><b>圖 1.1-5 (人工反射測勘)：</b> 人類利用探勘船施放氣槍 (Airgun) 製造人工震波，震波在海底岩層交界面反射回來，由觀測電纜 (Hydrophones) 接收，用來精準尋找地底原油與天然氣。</li>
+        </ul>
+        
+        <svg width="600" height="250" viewBox="0 0 600 250">
+            <rect width="600" height="250" fill="#f8f9fa"/>
+            <path d="M 0,40 Q 300,50 600,40" stroke="#7f8c8d" stroke-width="2" fill="none"/>
+            <path d="M 0,140 Q 300,160 600,140" stroke="#7f8c8d" stroke-dasharray="5,5" fill="none"/>
+            <path d="M 50,40 L 55,25 L 70,25 L 58,15 L 65,0 L 50,10 L 35,0 L 42,15 L 30,25 L 45,25 Z" fill="#e74c3c"/>
+            <text x="40" y="60" fill="#e74c3c" font-size="12" font-weight="bold">震源 (Fig 1.1-1)</text>
+            <path d="M 50,40 Q 250,220 450,40" stroke="#e67e22" stroke-width="3" fill="none" stroke-linecap="round">
+                <animate attributeName="stroke-dasharray" from="0,500" to="500,0" dur="3s" repeatCount="indefinite" />
+            </path>
+            <text x="210" y="160" fill="#e67e22" font-size="12">連續折射路徑 (Fig 1.1-2)</text>
+            <polygon points="450,40 440,20 460,20" fill="#2ce3b9" stroke="#27ae60" stroke-width="1"/>
+            <text x="430" y="15" fill="#27ae60" font-size="12" font-weight="bold">接收儀 (Receiver)</text>
+            <path d="M 460,25 L 480,25 L 485,15 L 490,35 L 495,20 L 505,25 L 515,5 L 520,45 L 525,10 L 535,25 L 540,50 L 545,0 L 550,60 L 555,10 L 570,25" stroke="#2c3e50" stroke-width="1.5" fill="none"/>
+            <text x="480" y="70" fill="#2c3e50" font-size="11">P波</text>
+            <text x="510" y="70" fill="#2c3e50" font-size="11">S波</text>
+            <text x="540" y="75" fill="#2c3e50" font-size="11">表面波 (Fig 1.1-3)</text>
+        </svg>
+    </div>
+
+    <button class="accordion"><span><span class="badge">3</span>3. Seismic Hazard 與 Seismic Risk 的區別？</span> <span>+</span></button>
+    <div class="panel">
+        <p>這兩個詞在中文常被混用，但在科學與防災工程上有本質的不同：</p>
+        <ul>
+            <li><span class="highlight">地震危害 (Seismic Hazard)：</span> 指的是「大自然帶來的物理現象」。例如：某斷層未來可能引發規模 7.0 地震、地表加速度可能達到 0.4g。這是純粹的地質現象，無論有沒有人住，它都會發生。</li>
+            <li><span class="highlight">地震風險 (Seismic Risk)：</span> 指的是「地震對人類社會造成的預期損失（人命傷亡、財產損失）」。</li>
+        </ul>
+        <div class="example-box">
+            <b>💡 經典生活例子：</b><br>
+            如果有一場極巨大的地震發生在<b>「無人居住的荒涼沙漠」</b>：<br>
+            $\rightarrow$ 它的 Seismic Hazard <b>極高</b>（地表搖晃劇烈）。<br>
+            $\rightarrow$ 它的 Seismic Risk 卻是 <b>零</b>（因為沒有任何房屋會倒塌，也沒有人會受傷）。
+        </div>
+    </div>
+
+    <button class="accordion"><span><span class="badge">4</span>4. 公式說明：地震波在傳遞中能量衰減的原因？</span> <span>+</span></button>
+    <div class="panel">
+        <p>教科書中的波幅衰減公式通常寫作：</p>
+        <div class="formula">
+            $A(r) = \frac{A_0}{r} \cdot e^{-\gamma r}$ 
+        </div>
+        <p>這代表地震波隨距離 ($r$) 增加時，振幅會因為以下<b>兩大物理機制</b>而減弱：</p>
+        <ol>
+            <li><b>幾何擴散 (Geometric Spreading) —— 對應公式中的 $\frac{1}{r}$：</b> 震源釋放的能量是以球體表面向外擴散的。隨著距離越遠，相同的能量被分散到越大的球面上，單位面積分配到的能量自然就變小了（就像把同樣一湯匙的果醬，塗在越來越大的麵包上，果醬層會變薄）。</li>
+            <li><b>非彈性衰減/內稟衰減 (Anelastic Attenuation) —— 對應公式中的 $e^{-\gamma r}$：</b> 當震波穿過岩石時，岩石晶體之間會產生微小的摩擦，把一部分的「機械動能」轉換成了「熱能」消耗掉，這屬於能量的本質損失。</li>
+        </ol>
+    </div>
+
+    <button class="accordion"><span><span class="badge">5</span>5. 圖 1.2-3、1.2-5、1.2-6 說明 (危害機率圖與加速度)</span> <span>+</span></button>
+    <div class="panel">
+        <p>這三張圖是<b>防災地圖與耐震設計標準</b>的科學依據：</p>
+        <p>圖中展示了特定區域（例如全美國或特定斷層周邊）在未來（如50年內）有 10% 的機率會超越的<b>最大地表加速度 (PGA, Peak Ground Acceleration)</b>。這不是預測明天會不會地震，而是告訴工程師：這個地方的牆壁未來有可能要承受多大的「橫向拉扯力」，因此蓋房子時，結構強度必須超越這個基準。圖1.2-6 則進一步展示了反應譜，說明不同週期的建築對該加速度的放大效應。</p>
+        
+        <svg width="400" height="200" viewBox="0 0 400 200">
+            <rect width="400" height="200" fill="#f1f3f5"/>
+            <line x1="50" y1="100" x2="350" y2="100" stroke="#e74c3c" stroke-width="4" stroke-dasharray="10,5"/>
+            <text x="60" y="90" fill="#e74c3c" font-size="12" font-weight="bold">活動斷層帶</text>
+            <path d="M 40,100 C 40,50 360,50 360,100 C 360,150 40,150 40,100 Z" fill="none" stroke="#e67e22" stroke-width="2"/>
+            <text x="160" y="65" fill="#e67e22" font-size="11">PGA = 0.2g</text>
+            <path d="M 80,100 C 80,70 320,70 320,100 C 320,130 80,130 80,100 Z" fill="none" stroke="#d35400" stroke-width="2"/>
+            <text x="160" y="85" fill="#d35400" font-size="11">PGA = 0.4g (高危害區)</text>
+            <text x="130" y="180" fill="#7f8c8d" font-size="12">圖 1.2-3 國家地震危害機率圖模擬</text>
+        </svg>
+    </div>
+
+    <button class="accordion"><span><span class="badge">6</span>6. 建材抗震力與建築物高度的共振效應？</span> <span>+</span></button>
+    <div class="panel">
+        <div class="grid-2">
+            <div>
+                <h4>🏢 不同建材的抵抗力</h4>
+                <ul>
+                    <li><b>加固鋼骨/鋼筋混凝土 (佳)：</b> 具有極高的「韌性」，遇到搖晃會產生彈性變形吸收能量，不易瞬間酥碎倒塌。</li>
+                    <li><b>未加固磚牆/石造建築 (差)：</b> 屬於「脆性材料」，雖然硬，但毫無彈性，一遇到剪力搖晃就會像玻璃一樣瞬間粉碎，非常危險。</li>
+                </ul>
+            </div>
+            <div>
+                <h4>📶 高度與共振效應</h4>
+                <p>地震波像音樂一樣有不同的「頻率」：</p>
+                <ul>
+                    <li><b>高頻（短週期、震動極快）的波：</b> 容易跟<b>低矮平房</b>發生共振，對透天厝或平房破壞大。</li>
+                    <li><b>低頻（長週期、緩慢大搖）的波：</b> 傳得遠，且容易跟<b>高樓大廈</b>的自然震動週期產生「共振」，讓大樓像盪秋千一樣越盪越大。</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <button class="accordion"><span><span class="badge">7</span>7. 土壤液化的物理原因？</span> <span>+</span></button>
+    <div class="panel">
+        <p><b>土壤液化 (Soil Liquefaction)</b> 通常發生在「地表下為疏鬆細沙，且地下水位很高」的區域。其發生的三步驟如下：</p>
+        <div class="example-box">
+            <ol>
+                <li><b>正常狀態：</b> 沙粒與沙粒之間緊密接觸，互相支撐，上方可以穩穩地蓋房子。</li>
+                <li><b>劇烈搖晃：</b> 地震波傳來，連續擠壓沙土，打散了原本緊密排列的沙粒結構。</li>
+                <li><b>液化發生：</b> 沙粒間的孔隙水壓瞬間飆高，把沙粒彼此推開。這時，沙土完全失去承載力，變得像<b>「流沙液體」</b>。導致完好的房屋直接下陷、傾斜，地下管線反浮出地面。</li>
+            </ol>
+        </div>
+    </div>
+
+    <button class="accordion"><span><span class="badge">8</span>8. 地震預報 (Forecasting) 與預測 (Prediction) 的區別？</span> <span>+</span></button>
+    <div class="panel">
+        <p>圖 1.2-14 清晰闡明了兩者的科學定義與實用性跨度：</p>
+        <table border="1" cellpadding="8" style="width:100%; border-collapse:collapse; border-color:#ddd;">
+            <tr style="background:#f0f4f8;">
+                <th>特徵</th>
+                <th>🔮 地震預測 (Prediction)</th>
+                <th>📊 地震預報 (Forecasting)</th>
+            </tr>
+            <tr>
+                <td><b>定義</b></td>
+                <td>精確指出明確的<b>時間、地點、規模</b>（如：明天下午3點某斷層會發生規模6.5地震）。</td>
+                <td>給出長期、統計學上的<b>機率分佈</b>（如：未來30年內該斷層有高達70%機率發生大震）。</td>
+            </tr>
+            <tr>
+                <td><b>現今科學現況</b></td>
+                <td><b>目前人類無法做到！</b> 因為地底斷層行為過於複雜且具混沌特性。</td>
+                <td><b>目前科學的主流應用。</b> 用於制定合理的都市建築防震法規與保險精算。</td>
+            </tr>
+        </table>
+    </div>
+
+    <button class="accordion"><span><span class="badge">9</span>9. 什麼是 Seismic Gap (地震空白區)？圖1.2-15/16 說明</span> <span>+</span></button>
+    <div class="panel">
+        <p><b>地震空白區 (Seismic Gap)</b> 是一個非常經典的長期預報理論：</p>
+        <p>在一條長期且持續運動的板塊邊界（或活躍斷層帶）上，各個區段照理說應該都要定期發生地震來釋放能量。如果周圍的區段在過去幾十年間都陸續發生過大地震，偏偏有<b>其中一段保持死寂、遲遲沒有地震</b>，這個長期的「寂靜空白處」就是 Seismic Gap。</p>
+        <p><b>圖 1.2-15 與 1.2-16 說明：</b> 科學家（如 McCann 與 Nishenko）繪製了環太平洋板塊邊界的歷史破裂地圖，找出哪些片段是超過百年未震的「空白區」，並成功預警了數次後續的大地震。因為這代表該處的斷層正被死死卡住，應力累積最嚴重，未來爆發大震的風險也最高。</p>
+        
+        <svg width="500" height="120" viewBox="0 0 500 120">
+            <rect width="500" height="120" fill="#f8f9fa"/>
+            <line x1="20" y1="60" x2="480" y2="60" stroke="#7f8c8d" stroke-width="6"/>
+            <rect x="30" y="45" width="130" height="30" rx="5" fill="#2ecc71" opacity="0.7"/>
+            <text x="45" y="65" fill="#fff" font-size="12">1998年已震區</text>
+            <rect x="340" y="45" width="130" height="30" rx="5" fill="#2ecc71" opacity="0.7"/>
+            <text x="355" y="65" fill="#fff" font-size="12">2005年已震區</text>
+            <rect x="175" y="40" width="150" height="40" rx="5" fill="#e74c3c" fill-opacity="0.2" stroke="#e74c3c" stroke-width="2" stroke-dasharray="4,4"/>
+            <text x="185" y="65" fill="#e74c3c" font-size="13" font-weight="bold">❌ Seismic Gap (危險!)</text>
+            <text x="165" y="105" fill="#333" font-size="12">圖 1.2-15/16 斷層應力累積空白區示意圖</text>
+        </svg>
+    </div>
+
+    <button class="accordion"><span><span class="badge">10</span>10. 地震預測的方法有哪些？</span> <span>+</span></button>
+    <div class="panel">
+        <p>為了尋找地震前的「前兆 (Precursors)」，科學家曾嘗試過許多觀測手段（但目前皆無法保證百分之百準確）：</p>
+        <ul>
+            <li><b>地殼形變監測：</b> 利用高精度 GPS 或傾斜儀，觀測斷層兩側岩石是否正在發生微小的異常扭曲。</li>
+            <li><b>地下水與化學觀測：</b> 監測井水水位的突然暴漲暴跌，或是岩石受壓微破裂時釋放出的<b>氡氣 (Radon)</b> 濃度。</li>
+            <li><b>電磁場異常：</b> 觀察地底岩石受極大應力擠壓時，是否引發壓電效應導致局部地磁或電離層擾動。</li>
+            <li><b>微震活動性 (Seismicity Clusters)：</b> 觀察大震前是否有小震頻率異常飆升（前震群）或突然陷入詭異的靜止狀態。</li>
+        </ul>
+    </div>
+
+    <button class="accordion"><span><span class="badge">11</span>11. 如何用地震學監測地下核子試爆？圖 1.2-18/19</span> <span>+</span></button>
+    <div class="panel">
+        <p>這是地震學在全面禁止核試驗條約 (CTBT) 中極其關鍵的政治與軍事應用。要區分天然地震與地下核爆，科學家主要看<b>「波的分量比例」</b>：</p>
+        <ul>
+            <li><b>天然地震：</b> 屬於斷層兩側的「剪切錯動」，會激發大量的 <b>S波 (剪力波) 與表面波</b>。</li>
+            <li><b>地下核爆 (Explosion)：</b> 屬於中心的「向外推擠與球形膨脹」，會在第一時間產生極強大的 <b>P波 (壓縮波)</b>，而 S波與表面波則相對非常微弱。</li>
+        </ul>
+        <p><b>圖 1.2-18 至 1.2-20 的物理識別機制 ($m_b$ 對比 $M_s$)：</b> 地震學家會利用主頻較高的 P波來計算「體波規模 ($m_b$)」，用長週期的表面波計算「表面波規模 ($M_s$)」。在相同能量下，核爆的 $m_b$ 往往會顯著高於其 $M_s$。只要將觀測數據點在圖上，兩者的群落會完全分離，讓偷試爆的行為無所遁形！</p>
+        
+        <svg width="450" height="220" viewBox="0 0 450 220">
+            <rect width="450" height="220" fill="#fff"/>
+            <line x1="50" y1="180" x2="400" y2="180" stroke="#333" stroke-width="2"/>
+            <line x1="50" y1="20" x2="50" y2="180" stroke="#333" stroke-width="2"/>
+            <text x="200" y="205" fill="#333" font-size="12">表面波規模 M_s (長週期)</text>
+            <text x="15" y="100" fill="#333" font-size="12" transform="rotate(-90 15,100)">體波規模 m_b (P波)</text>
+            
+            <circle cx="120" cy="140" r="5" fill="#3498db"/><circle cx="150" cy="110" r="5" fill="#3498db"/>
+            <circle cx="180" cy="90" r="5" fill="#3498db"/><circle cx="220" cy="70" r="5" fill="#3498db"/>
+            <text x="120" y="80" fill="#3498db" font-size="12" font-weight="bold">🔵 天然地震區群落</text>
+            
+            <polygon points="120,40 125,50 115,50" fill="#e74c3c"/><polygon points="160,35 165,45 155,45" fill="#e74c3c"/>
+            <polygon points="200,30 205,40 195,40" fill="#e74c3c"/>
+            <text x="130" y="25" fill="#e74c3c" font-size="12" font-weight="bold">🔺 地下核爆區群落 (Fig 1.2-20)</text>
+        </svg>
+    </div>
+
+    <script>
+        var acc = document.getElementsByClassName("accordion");
+        for (var i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                var sign = this.querySelector('span:last-child');
+                if (panel.style.display === "block") {
+                    panel.style.display = "none";
+                    sign.innerText = "+";
+                } else {
+                    panel.style.display = "block";
+                    sign.innerText = "-";
+                }
+            });
+        }
+    </script>
+</body>
+</html>
